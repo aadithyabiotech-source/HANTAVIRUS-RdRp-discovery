@@ -1,2 +1,2 @@
-# HANTAVIRUS-RdRp-discovery
-computational pipeline
+# HANTAANVIRUS-RdRp-discovery
+
