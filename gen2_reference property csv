@@ -1,0 +1,2 @@
+Candidate ID	SMILES	InChIKey	MW	LogP	TPSA	HBD	HBA	Rotatable Bonds	QED	SA Score	Bemis_Murcko_Scaffold	Lipinski Violations
+Gen2_Trifluoromethyl	C[NH+]1CCc2ccc(C(F)(F)F)cc2[C@@H]2c3ccccc3CSN2CC1	QOXZKXOKHHCZNU-IBGZPJMESA-O	379.47	3.33	7.68	1	2	0	0.703	4.83	c1ccc2c(c1)CC[NH2+]CCN1SCc3ccccc3[C@@H]21	0
