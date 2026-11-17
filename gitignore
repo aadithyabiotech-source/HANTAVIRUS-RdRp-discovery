@@ -1,0 +1,15 @@
+# Ignore large MD trajectory files
+*.xtc
+*.trr
+*.cpt
+*.edr
+*.tpr
+
+# Ignore temporary files
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
