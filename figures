@@ -1,0 +1,18 @@
+# Figures
+
+This folder contains visual outputs from the computational drug-discovery workflow.
+
+## Planned or Uploaded Figures
+
+- Docking poses of the prioritized Gen-2 trifluoromethyl analogue in the HTNV L-protein/RdRp binding site (PDB 8C4T).
+- Residue-level interaction maps for HTNV-retained and dual-target candidates.
+- ADMET property plots for generated analogues.
+- Scaffold-hopping comparison plots.
+- Molecular similarity and Bemis–Murcko scaffold analysis figures.
+- Exploratory docking poses for tubulin–colchicine-site target PDB 1SA0.
+
+## Important Note
+
+All figures represent computational predictions and are intended for
+hypothesis-generating analysis only. No molecular-dynamics simulations or
+experimental validation were performed in the present study.
