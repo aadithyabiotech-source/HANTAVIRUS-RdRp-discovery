@@ -1,0 +1,46 @@
+Candidate_ID,SMILES,Canonical_SMILES,MW,LogP,TPSA,HBD,HBA,Rotatable_Bonds,QED,SA_Score,Bemis_Murcko_Scaffold,Tanimoto_Similarity,Scaffold_Hop_Status
+Gen2_Trifluoromethyl,C[NH+]1CCc2ccc(C(F)(F)F)cc2[C@@H]2c3ccccc3CSN2CC1,C[NH+]1CCc2ccc(C(F)(F)F)cc2[C@@H]2c3ccccc3CSN2CC1,379.47,3.33,7.68,1,2,3,0.75,2.5,c1ccc2c(c1)CC[NH2+]CCN1SCc3ccccc3[C@@H]21,1.0,Reference
+  Candidate ID	SMILES	Canonical SMILES	InChIKey	Scaffold Class	Bemis-Murcko Scaffold	MW (Da)	LogP	TPSA	HBD	HBA	Rotatable Bonds	QED	SA Score	Lipinski Violations	Tanimoto Similarity	Scaffold-hop status	PAINS Status
+Analog_1A_Benzimidazole	FC(F)(F)c1ccc2nc(CCN3CCN(C)CC3)oc2c1	CN1CCN(CCc2nc3ccc(C(F)(F)F)cc3o2)CC1	FGOXKDLIDGFCCF-UHFFFAOYSA-N	Benzimidazole-based scaffold	c1ccc2oc(CCN3CCNCC3)nc2c1	313.32	2.64	32.51	0	4	3	0.872	2.33	0	0.271	TRUE SCAFFOLD HOP	None
+Analog_1B_Benzimidazole	Clc1ccc2nc(CCN3CCN(C)CC3)oc2c1	CN1CCN(CCc2nc3ccc(Cl)cc3o2)CC1	HNHZJOBQWQUIDS-UHFFFAOYSA-N	Benzimidazole-based scaffold	c1ccc2oc(CCN3CCNCC3)nc2c1	279.77	2.27	32.51	0	4	3	0.863	2.18	0	0.147	TRUE SCAFFOLD HOP	None
+Analog_2A_Indole	FC(F)(F)c1ccc2[nH]c(CCN3CCN(C)CC3)cc2c1	CN1CCN(CCc2cc3cc(C(F)(F)F)ccc3[nH]2)CC1	CPJAVPCUZGWYBL-UHFFFAOYSA-N	Indole-based scaffold	c1ccc2[nH]c(CCN3CCNCC3)cc2c1	311.35	2.98	22.27	1	2	3	0.941	2.3	0	0.261	TRUE SCAFFOLD HOP	None
+Analog_2B_Indole	Fc1ccc2[nH]c(CCN3CCN(C)CC3)cc2c1	CN1CCN(CCc2cc3cc(F)ccc3[nH]2)CC1	IASQRKWIFBIKED-UHFFFAOYSA-N	Indole-based scaffold	c1ccc2[nH]c(CCN3CCNCC3)cc2c1	261.34	2.1	22.27	1	2	3	0.914	2.18	0	0.151	TRUE SCAFFOLD HOP	None
+Analog_3A_Quinoline	FC(F)(F)c1ccc2c(c1)nc(CCN3CCN(C)CC3)cc2	CN1CCN(CCc2ccc3ccc(C(F)(F)F)cc3n2)CC1	ULLFOGDFEJJHAL-UHFFFAOYSA-N	Quinoline-based scaffold	c1ccc2nc(CCN3CCNCC3)ccc2c1	323.36	3.04	19.37	0	3	3	0.865	2.19	0	0.265	TRUE SCAFFOLD HOP	None
+Analog_3B_Quinoline	Clc1ccc2c(c1)nc(CCN3CCN(C)CC3)cc2	CN1CCN(CCc2ccc3ccc(Cl)cc3n2)CC1	JIMFBHKOYUWNHH-UHFFFAOYSA-N	Quinoline-based scaffold	c1ccc2nc(CCN3CCNCC3)ccc2c1	289.81	2.68	19.37	0	3	3	0.866	2.03	0	0.137	TRUE SCAFFOLD HOP	None
+Analog_4A_Pyridine	FC(F)(F)c1ccc(nc1)CCN1CCN(C)CC1	CN1CCN(CCc2ccc(C(F)(F)F)cn2)CC1	VUFRYTHQBGGKBM-UHFFFAOYSA-N	Pyridine-based scaffold	c1ccc(CCN2CCNCC2)nc1	273.3	1.89	19.37	0	3	3	0.838	2.12	0	0.224	TRUE SCAFFOLD HOP	None
+Analog_4B_Pyridine	Fc1ccc(nc1)CCN1CCN(C)CC1	CN1CCN(CCc2ccc(F)cn2)CC1	LXVIVPLZQDJXNX-UHFFFAOYSA-N	Pyridine-based scaffold	c1ccc(CCN2CCNCC2)nc1	223.29	1.01	19.37	0	3	3	0.762	2.04	0	0.129	TRUE SCAFFOLD HOP	None
+Analog_5A_Triazole	FC(F)(F)c1ccc(cc1)n2cnnc2CCN3CCN(C)CC3	CN1CCN(CCc2nncn2-c2ccc(C(F)(F)F)cc2)CC1	ZQGVBKZKNVJPRQ-UHFFFAOYSA-N	Triazole-based scaffold	c1ccc(-n2cnnc2CCN2CCNCC2)cc1	339.37	2.08	37.19	0	4	4	0.855	2.37	0	0.208	TRUE SCAFFOLD HOP	None
+Analog_5B_Triazole	Clc1ccc(cc1)n2cnnc2CCN3CCN(C)CC3	CN1CCN(CCc2nncn2-c2ccc(Cl)cc2)CC1	WCJZGWANNATLNK-UHFFFAOYSA-N	Triazole-based scaffold	c1ccc(-n2cnnc2CCN2CCNCC2)cc1	305.81	1.71	37.19	0	4	4	0.862	2.24	0	0.118	TRUE SCAFFOLD HOP	None
+Analog_6A_Thiazole	FC(F)(F)c1ccc(cc1)c2nc(CCN3CCN(C)CC3)cs2	CN1CCN(CCc2csc(-c3ccc(C(F)(F)F)cc3)n2)CC1	XKIVUGDDIBFSNU-UHFFFAOYSA-N	Thiazole-based scaffold	c1ccc(-c2nc(CCN3CCNCC3)cs2)cc1	355.43	3.62	19.37	0	4	4	0.835	2.18	0	0.239	TRUE SCAFFOLD HOP	None
+Analog_6B_Thiazole	Fc1ccc(cc1)c2nc(CCN3CCN(C)CC3)cs2	CN1CCN(CCc2csc(-c3ccc(F)cc3)n2)CC1	PRMYMWLTBHDZLZ-UHFFFAOYSA-N	Thiazole-based scaffold	c1ccc(-c2nc(CCN3CCNCC3)cs2)cc1	305.42	2.74	19.37	0	4	4	0.866	2.03	0	0.149	TRUE SCAFFOLD HOP	None
+Analog_7A_Coumarin	FC(F)(F)c1ccc2c(c1)oc(=O)c(CCN3CCN(C)CC3)c2	CN1CCN(CCc2cc3ccc(C(F)(F)F)cc3oc2=O)CC1	AOQZJBPJJKYPQI-UHFFFAOYSA-N	Coumarin-based scaffold	O=c1oc2ccccc2cc1CCN1CCNCC1	340.35	2.6	36.69	0	4	3	0.805	2.37	0	0.247	TRUE SCAFFOLD HOP	None
+Analog_7B_Coumarin	Clc1ccc2c(c1)oc(=O)c(CCN3CCN(C)CC3)c2	CN1CCN(CCc2cc3ccc(Cl)cc3oc2=O)CC1	BXGLGWLFQKNQRT-UHFFFAOYSA-N	Coumarin-based scaffold	O=c1oc2ccccc2cc1CCN1CCNCC1	306.79	2.24	36.69	0	4	3	0.815	2.22	0	0.128	TRUE SCAFFOLD HOP	None
+Analog_8A_THQ	FC(F)(F)c1ccc2c(c1)N(CCN3CCN(C)CC3)CCC2	CN1CCN(CCN2CCCc3ccc(C(F)(F)F)cc32)CC1	BIDVQTLCPJLYFL-UHFFFAOYSA-N	Tetrahydroquinoline-based scaffold	c1ccc2c(c1)CCCN2CCN1CCNCC1	327.39	2.71	9.72	0	3	3	0.845	2.25	0	0.284	TRUE SCAFFOLD HOP	None
+Analog_8B_THQ	Fc1ccc2c(c1)N(CCN3CCN(C)CC3)CCC2	CN1CCN(CCN2CCCc3ccc(F)cc32)CC1	ZDALZMMAZUVHGF-UHFFFAOYSA-N	Tetrahydroquinoline-based scaffold	c1ccc2c(c1)CCCN2CCN1CCNCC1	277.39	1.83	9.72	0	3	3	0.834	2.12	0	0.169	TRUE SCAFFOLD HOP	None
+Analog_9A_DHPM	FC(F)(F)c1ccc(cc1)C2C(=O)NC(=O)N2CCN3CCN(C)CC3	CN1CCN(CCN2C(=O)NC(=O)C2c2ccc(C(F)(F)F)cc2)CC1	VXKRFZKIYOQLTG-UHFFFAOYSA-N	Dihydropyrimidinone-based scaffold	O=C1NC(=O)N(CCN2CCNCC2)C1c1ccccc1	370.38	1.55	55.89	1	4	4	0.817	2.85	0	0.254	TRUE SCAFFOLD HOP	None
+Analog_9B_DHPM	Clc1ccc(cc1)C2C(=O)NC(=O)N2CCN3CCN(C)CC3	CN1CCN(CCN2C(=O)NC(=O)C2c2ccc(Cl)cc2)CC1	JOBVLKKZHLUUTQ-UHFFFAOYSA-N	Dihydropyrimidinone-based scaffold	O=C1NC(=O)N(CCN2CCNCC2)C1c1ccccc1	336.82	1.18	55.89	1	4	4	0.839	2.72	0	0.147	TRUE SCAFFOLD HOP	None
+Analog_10A_Biphenyl	FC(F)(F)c1ccc(cc1)c2ccc(cc2)CCN3CCN(C)CC3	CN1CCN(CCc2ccc(-c3ccc(C(F)(F)F)cc3)cc2)CC1	XYRADZIPBVEDJU-UHFFFAOYSA-N	Biphenyl or terphenyl-based scaffold	c1ccc(-c2ccc(CCN3CCNCC3)cc2)cc1	348.41	4.16	6.48	0	2	4	0.819	1.87	0	0.231	TRUE SCAFFOLD HOP	None
+Analog_10B_Biphenyl	Fc1ccc(cc1)c2ccc(cc2)CCN3CCN(C)CC3	CN1CCN(CCc2ccc(-c3ccc(F)cc3)cc2)CC1	UUMWZYYDTDNZIS-UHFFFAOYSA-N	Biphenyl or terphenyl-based scaffold	c1ccc(-c2ccc(CCN3CCNCC3)cc2)cc1	298.41	3.28	6.48	0	2	4	0.854	1.69	0	0.132	TRUE SCAFFOLD HOP	None
+Candidate ID	Scaffold Class	MW (Da)	LogP	TPSA ()	QED	Tubulin Affinity	HTNV Affinity	Predicted Profile
+0	Analog_3A_Quinoline	Quinoline-based scaffold	323.36	3.04	19.37	0.865	-6.81	-8.12	Class B: HTNV-Retained
+1	Analog_10A_Biphenyl	Biphenyl or terphenyl-based scaffold	348.41	4.16	6.48	0.819	-7.42	-7.92	Class A: Predicted Dual-Target
+2	Analog_3B_Quinoline	Quinoline-based scaffold	289.81	2.68	19.37	0.866	-6.42	-7.89	Class B: HTNV-Retained
+3	Analog_2A_Indole	Indole-based scaffold	311.35	2.98	22.27	0.941	-6.52	-7.82	Class B: HTNV-Retained
+4	Analog_10B_Biphenyl	Biphenyl or terphenyl-based scaffold	298.41	3.28	6.48	0.854	-7.18	-7.71	Class A: Predicted Dual-Target
+5	Analog_2B_Indole	Indole-based scaffold	261.34	2.10	22.27	0.914	-6.31	-7.61	Class B: HTNV-Retained
+6	Analog_1A_Benzimidazole	Benzimidazole-based scaffold	313.32	2.64	32.51	0.872	-6.21	-7.53	Class B: HTNV-Retained
+7	Analog_7A_Coumarin	Coumarin-based scaffold	340.35	2.60	36.69	0.805	-7.21	-7.52	Class A: Predicted Dual-Target
+8	Analog_8A_THQ	Tetrahydroquinoline-based scaffold	327.39	2.71	9.72	0.845	-6.53	-7.41	Class B: HTNV-Retained
+9	Analog_1B_Benzimidazole	Benzimidazole-based scaffold	279.77	2.27	32.51	0.863	-6.04	-7.34	Class B: HTNV-Retained
+10	Analog_7B_Coumarin	Coumarin-based scaffold	306.79	2.24	36.69	0.815	-7.05	-7.30	Class A: Predicted Dual-Target
+11	Analog_6A_Thiazole	Thiazole-based scaffold	355.43	3.62	19.37	0.835	-6.11	-7.22	Class B: HTNV-Retained
+12	Analog_8B_THQ	Tetrahydroquinoline-based scaffold	277.39	1.83	9.72	0.834	-6.35	-7.18	Class B: HTNV-Retained
+13	Analog_6B_Thiazole	Thiazole-based scaffold	305.42	2.74	19.37	0.866	-5.98	-7.05	Class B: HTNV-Retained
+14	Analog_5A_Triazole	Triazole-based scaffold	339.37	2.08	37.19	0.855	-5.92	-7.01	Class B: HTNV-Retained
+15	Analog_9A_DHPM	Dihydropyrimidinone-based scaffold	370.38	1.55	55.89	0.817	-5.81	-6.83	Class D: Deprioritized
+16	Analog_5B_Triazole	Triazole-based scaffold	305.81	1.71	37.19	0.862	-5.71	-6.82	Class D: Deprioritized
+17	Analog_9B_DHPM	Dihydropyrimidinone-based scaffold	336.82	1.18	55.89	0.839	-5.60	-6.65	Class D: Deprioritized
+18	Analog_4A_Pyridine	Pyridine-based scaffold	273.30	1.89	19.37	0.838	-5.32	-6.22	Class D: Deprioritized
+19	Analog_4B_Pyridine	Pyridine-based scaffold	223.29	1.01	19.37	0.762	-5.10	-6.05	Class D: Deprioritized
+
+  
