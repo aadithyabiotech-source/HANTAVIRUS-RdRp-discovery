@@ -1,0 +1,327 @@
+!pip install rdkit selfies
+from rdkit import Chem
+from rdkit.Chem import AllChem, Draw, Descriptors, rdMolDescriptors
+from rdkit.Chem.Draw import IPythonConsole
+import matplotlib.pyplot as plt
+from IPython.display import display, Image
+
+print("✅ RDKit installed and imported!")
+from rdkit import Chem
+from rdkit.Chem import Descriptors, rdMolDescriptors
+from rdkit import RDLogger
+import pandas as pd
+
+# Silence RDKit warnings to prevent UnicodeEncodeError in notebook output
+RDLogger.DisableLog('rdApp.*')
+
+def calculate_sa_score(mol):
+    if mol is None: return 10.0
+    return round(Descriptors.MolWt(mol) / 100 + rdMolDescriptors.CalcNumRings(mol) + len(Chem.FindMolChiralCenters(mol)), 2)
+
+def generate_baloxavir_library(n_target=600):
+    # Template: Dibenzothiepin core with placeholder for Sidechain (SC) and R-group (RG)
+    template = "S1Cc2ccccc2[C@H]({SC})c3cc({RG})ccc31"
+
+    sidechains = [
+        "N1CCN(C(=O)c2cc(=O)ccn2)CC1", "N1CCOC[C@@H]1n2ccc(=O)cc2=O",
+        "N1CCN(S(=O)(=O)C)CC1", "N1CCN(Cc2ccccc2)CC1",
+        "N1CCN(C(=O)C2CC2)CC1", "N1CCOCC1", "N1CCN(C)CC1",
+        "N1CCN(CC(F)(F)F)CC1", "N1CCN(C(=O)OC(C)(C)C)CC1",
+        "N1CC(F)(F)C1", "N1CCC(F)(F)CC1", "N1CCN(C2CC2)CC1",
+        "N1CCN(C(=O)Nc2ccccc2)CC1", "N1CC2(CN(C)C2)CC1",
+        "N1CCCCC1", "N1CCN(S(=O)(=O)N(C)C)CC1", "N1CCN(CC2CC2)CC1",
+        "N1CC(F)C1", "N1CCN(C(=O)C)CC1", "N1CC[NH+](C)CC1",
+        "N1CCCC[C@H]1C", "N1CC[C@@H](F)C1", "N1CCN(C(=O)C2=CC=CC=C2)CC1"
+    ]
+
+    r_groups = [
+        "F", "Cl", "Br", "I", "C", "CC", "CCC", "OC", "N", "C#N",
+        "C(F)(F)F", "OC(F)(F)F", "C1CC1", "NC(=O)C", "SC", "C#C",
+        "C=C", "C(=O)C", "C(=O)OC", "N(C)C", "O", "S(=O)(=O)C",
+        "c1ccccc1", "n1cccc1", "OC1CC1", "S(O)(=O)C", "C(=O)N(C)C", "NC(=O)N", "C(F)F"
+    ]
+
+    results = []
+    seen_smiles = set()
+
+    for sc in sidechains:
+        for rg in r_groups:
+            try:
+                smi_candidate = template.format(SC=sc, RG=rg)
+                mol = Chem.MolFromSmiles(smi_candidate)
+                if mol:
+                    if Chem.SanitizeMol(mol, catchErrors=True) == 0:
+                        can_smi = Chem.MolToSmiles(mol, isomericSmiles=True)
+                        if can_smi not in seen_smiles:
+                            results.append({
+                                'SMILES': can_smi,
+                                'QED': round(Descriptors.qed(mol), 3),
+                                'LogP': round(Descriptors.MolLogP(mol), 2),
+                                'MW': round(Descriptors.MolWt(mol), 1),
+                                'SA_Score': calculate_sa_score(mol)
+                            })
+                            seen_smiles.add(can_smi)
+                if len(results) >= n_target: break
+            except: continue
+        if len(results) >= n_target: break
+
+    return pd.DataFrame(results)
+
+# Run library generation and save without heavy prints to avoid UnicodeEncodeError
+library_df = generate_baloxavir_library(600)
+
+if not library_df.empty:
+    library_df = library_df.sort_values('QED', ascending=False)
+    library_df.to_csv('baloxavir_novel_library_v11.csv', index=False)
+    print(f'✅ Successfully generated and saved {len(library_df)} unique novel analogs to baloxavir_novel_library_v11.csv')
+else:
+    print('❌ Library generation failed.')
+
+from rdkit import Chem
+from rdkit.Chem import Descriptors, rdMolDescriptors
+from rdkit.Chem.Draw import SimilarityMaps, rdMolDraw2D
+from IPython.display import SVG
+
+# Best Analogue SMILES
+lead_smi = "C=Cc1ccc2c(c1)[C@@H]1c3ccccc3CSN1CC[NH+](C)CC2"
+mol = Chem.MolFromSmiles(lead_smi)
+
+print("XAI Map: Atomic Contribution to LogP for Analogue 4")
+
+# Calculate Crippen LogP contributions
+contribs = rdMolDescriptors._CalcCrippenContribs(mol)
+weights = [c[0] for c in contribs]
+
+# Set up the drawing object
+draw2d = rdMolDraw2D.MolDraw2DSVG(400, 400)
+
+# Visualize the map correctly with the draw2d argument
+SimilarityMaps.GetSimilarityMapFromWeights(mol, weights, draw2d=draw2d, colorMap='coolwarm', contourLines=10)
+draw2d.FinishDrawing()
+
+# Display the resulting map
+SVG(draw2d.GetDrawingText())
+
+import os
+from rdkit import Chem
+from rdkit.Chem import AllChem
+from rdkit.Chem.Draw import MolToImage
+from IPython.display import Image, display
+import subprocess
+
+# Define paths
+pdb_file_1sa0 = '/content/1SA0.pdb'
+ligand_pdb_file = 'colchicine.pdb'
+ligand_pdbqt_file = 'colchicine.pdbqt'
+
+print(f"⠄ Extracting Colchicine (CN2) from {pdb_file_1sa0}...")
+
+found_col = False
+col_lines = []
+
+with open(pdb_file_1sa0, 'r') as f:
+    pdb_content = f.readlines()
+
+    # Debug: Print first few HETATM lines to check format
+    print("\n--- First 10 HETATM lines in 1SA0.pdb ---")
+    hetatm_count = 0
+    for line in pdb_content:
+        if line.startswith('HETATM'):
+            print(line.strip())
+            hetatm_count += 1
+        if hetatm_count >= 10:
+            break
+    print("-------------------------------------------\n")
+
+
+for line in pdb_content:
+    # Use strip() to handle potential whitespace padding in residue name field
+    # And check for exact match after stripping for robustness
+    if line.startswith(('ATOM', 'HETATM')) and line[17:20].strip() == 'CN2': # Changed from 'COL' to 'CN2'
+        col_lines.append(line)
+
+if col_lines:
+    found_col = True
+    with open(ligand_pdb_file, 'w') as out_f:
+        out_f.writelines(col_lines)
+    print(f"   ✅ Colchicine atoms extracted and saved to {ligand_pdb_file}")
+
+    # Convert the isolated ligand to PDBQT using OpenBabel
+    # --gen3D generates 3D coordinates, -h adds hydrogens, -opdbqt outputs in PDBQT format
+    # We also remove potentially problematic MODEL/ENDMDL lines if they exist
+    obabel_cmd = f"obabel {ligand_pdb_file} -O {ligand_pdbqt_file} --gen3D -h -opdbqt"
+    subprocess.run(obabel_cmd, shell=True, check=True, capture_output=True)
+
+    if os.path.exists(ligand_pdbqt_file) and os.path.getsize(ligand_pdbqt_file) > 0:
+        print(f"   ✅ Colchicine converted to PDBQT: {ligand_pdbqt_file} ({os.path.getsize(ligand_pdbqt_file)/1024:.2f} KB)")
+    else:
+        print("   ❌ Failed to convert colchicine to PDBQT. OpenBabel output (if any):")
+        # Add OpenBabel error output for debugging
+        obabel_process = subprocess.run(obabel_cmd, shell=True, capture_output=True, text=True)
+        print(obabel_process.stderr)
+        print(obabel_process.stdout)
+
+    # Optional: Display the 2D structure of the ligand using RDKit for verification
+    try:
+        mol_colchicine = Chem.MolFromPDBFile(ligand_pdb_file, removeHs=False)
+        if mol_colchicine:
+            img = MolToImage(mol_colchicine, size=(300, 300))
+            print("\nVisualizing Colchicine:")
+            display(img)
+        else:
+            print("   ⚠️ Could not load colchicine PDB into RDKit for visualization.")
+    except Exception as e:
+        print(f"   ⚠️ Error visualizing colchicine: {e}")
+
+else:
+    print(f"   ❌ Colchicine (residue 'CN2') not found in {pdb_file_1sa0} using 'line[17:20].strip() == 'CN2'' method.")
+    # Fallback/Debug: If still not found, list all HETATM residue names
+    hetatm_res_names = set()
+    for line in pdb_content:
+        if line.startswith('HETATM'):
+            res_name = line[17:20].strip()
+            if res_name:
+                hetatm_res_names.add(res_name)
+    if hetatm_res_names:
+        print(f"   Found other HETATM residue names: {', '.join(hetatm_res_names)}")
+    else:
+        print("   No HETATM records found at all.")
+
+%store ligand_pdbqt_file
+%store ligand_pdb_file
+print("\n🎉 Reference ligand isolation complete!")
+
+import numpy as np
+import os
+
+def load_pdbqt_coords(filepath):
+    atoms = []
+    if not os.path.exists(filepath):
+        return None
+    with open(filepath, 'r') as f:
+        for line in f:
+            if line.startswith(("ATOM", "HETATM")):
+                try:
+                    x = float(line[30:38])
+                    y = float(line[38:46])
+                    z = float(line[46:54])
+                    res_name = line[17:20].strip()
+                    res_num = line[22:26].strip()
+                    chain = line[21].strip()
+                    atom_name = line[12:16].strip()
+                    atoms.append({
+                        'coord': np.array([x, y, z]),
+                        'res_name': res_name,
+                        'res_num': res_num,
+                        'chain': chain,
+                        'atom_name': atom_name
+                    })
+                except ValueError:
+                    continue
+    return atoms
+
+# Load receptor and redocked ligand
+receptor_atoms = load_pdbqt_coords('1SA0_receptor (2).pdbqt')
+ligand_atoms = load_pdbqt_coords('colchicine_redock_out.pdbqt')
+
+if receptor_atoms and ligand_atoms:
+    pocket_residues = {}
+    # Check all pairwise distances between ligand and receptor atoms
+    for l_atom in ligand_atoms:
+        for r_atom in receptor_atoms:
+            dist = np.linalg.norm(l_atom['coord'] - r_atom['coord'])
+            if dist < 4.5: # 4.5 Angstroms threshold for non-bonded interactions
+                res_key = f"{r_atom['res_name']}_{r_atom['res_num']}_{r_atom['chain']}"
+                if res_key not in pocket_residues:
+                    pocket_residues[res_key] = dist
+                else:
+                    pocket_residues[res_key] = min(pocket_residues[res_key], dist)
+
+    print("--- Identified Binding Pocket Residues (within 4.5Å of Colchicine) ---")
+    # Sort by closest distance
+    sorted_residues = sorted(pocket_residues.items(), key=lambda x: x[1])
+    for res, d in sorted_residues[:20]:
+        print(f"Residue: {res:<15} | Min Distance: {d:.2f} Å")
+else:
+    print("❌ Error loading coordinates. Please verify file paths.")  
+
+
+
+  import subprocess
+import sys
+
+# Ensure rdkit is installed
+try:
+    import rdkit
+except ImportError:
+    subprocess.run([sys.executable, "-m", "pip", "install", "rdkit"], check=True)
+
+import os
+import pandas as pd
+from rdkit import Chem
+from rdkit.Chem import AllChem, DataStructs
+from rdkit.Chem.Scaffolds import MurckoScaffold
+
+# 1. Load the pre-generated library
+csv_path = 'baloxavir_novel_library_v11.csv'
+if not os.path.exists(csv_path):
+    # Re-generate fallback library if missing
+    from rdkit.Chem import Descriptors, rdMolDescriptors
+    def generate_baloxavir_library(n_target=600):
+        template = "S1Cc2ccccc2[C@H]({SC})c3cc({RG})ccc31"
+        sidechains = ["N1CCN(C(=O)c2cc(=O)ccn2)CC1", "N1CCOC[C@@H]1n2ccc(=O)cc2=O", "N1CCN(S(=O)(=O)C)CC1", "N1CCN(Cc2ccccc2)CC1"]
+        r_groups = ["F", "Cl", "Br", "I", "C", "CC", "CCC", "OC", "N", "C#N", "C(F)(F)F", "OC(F)(F)F"]
+        results = []
+        seen = set()
+        for sc in sidechains:
+            for rg in r_groups:
+                smi = template.format(SC=sc, RG=rg)
+                mol = Chem.MolFromSmiles(smi)
+                if mol and Chem.SanitizeMol(mol, catchErrors=True) == 0:
+                    can = Chem.MolToSmiles(mol, isomericSmiles=True)
+                    if can not in seen:
+                        results.append({'SMILES': can, 'QED': Descriptors.qed(mol), 'LogP': Descriptors.MolLogP(mol), 'MW': Descriptors.MolWt(mol)})
+                        seen.add(can)
+        return pd.DataFrame(results)
+    df_lib = generate_baloxavir_library(600)
+    df_lib.to_csv(csv_path, index=False)
+else:
+    df_lib = pd.read_csv(csv_path)
+
+# 2. Reference structures
+balox_mol = Chem.MolFromSmiles("O=C1c2cc(=O)ccn2N([C@H]2c3ccccc3CSc3ccccc32)[C@@H]2COCCN12")
+balox_scaffold = MurckoScaffold.GetScaffoldForMol(balox_mol)
+balox_scaffold_smi = Chem.MolToSmiles(balox_scaffold, isomericSmiles=True)
+
+# 3. Analyze library scaffolds
+scaffolds = []
+similarities = []
+fp_ref = AllChem.GetMorganFingerprintAsBitVect(balox_mol, 2, nBits=2048)
+
+for idx, row in df_lib.iterrows():
+    mol = Chem.MolFromSmiles(row['SMILES'])
+    if mol:
+        scaf = MurckoScaffold.GetScaffoldForMol(mol)
+        scaffolds.append(Chem.MolToSmiles(scaf, isomericSmiles=True))
+        fp = AllChem.GetMorganFingerprintAsBitVect(mol, 2, nBits=2048)
+        similarities.append(DataStructs.TanimotoSimilarity(fp_ref, fp))
+    else:
+        scaffolds.append(None)
+        similarities.append(0.0)
+
+df_lib['Bemis_Murcko_Scaffold'] = scaffolds
+df_lib['Tanimoto_Similarity'] = similarities
+
+# Count scaffold occurrences
+same_scaffold = df_lib[df_lib['Bemis_Murcko_Scaffold'] == balox_scaffold_smi]
+diff_scaffold = df_lib[df_lib['Bemis_Murcko_Scaffold'] != balox_scaffold_smi]
+
+print("=== SCAFFOLD NOVELTY SUMMARY ===")
+print(f"Total Molecules Analyzed: {len(df_lib)}")
+print(f"Molecules Sharing Original Scaffold: {len(same_scaffold)}")
+print(f"Molecules with Scaffold Hop Core: {len(diff_scaffold)}")
+
+# Filter True Scaffold Hops (Tanimoto < 0.4)
+true_hops = diff_scaffold[diff_scaffold['Tanimoto_Similarity'] < 0.4].sort_values('QED', ascending=False).head(10)
+print(f"Isolated {len(true_hops)} True Scaffold-Hopped Candidates for Docking Validation.")
+display(true_hops)
