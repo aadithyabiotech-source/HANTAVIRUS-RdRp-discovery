@@ -1,0 +1,23 @@
+# Scripts
+
+This folder contains Python scripts used in the AI-guided Hantaan virus
+(HTNV) L-protein/RdRp inhibitor-discovery project.
+
+## Workflow
+
+1. Ligand preparation and virtual screening.
+2. ADMET profiling and drug-likeness filtering.
+3. Bemis–Murcko scaffold analysis.
+4. Reaction-based analogue generation.
+5. Scaffold hopping and candidate generation.
+6. Molecular similarity analysis.
+7. Docking-score analysis.
+8. Residue-level interaction analysis.
+9. Explainable AI analysis using SHAP and GNNExplainer.
+10. Pharmacophore modeling and visualization.
+
+## Important Note
+
+All outputs are computational predictions and are hypothesis-generating only.
+No molecular-dynamics simulations or experimental validation were performed
+in the present study.
