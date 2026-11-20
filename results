@@ -1,0 +1,18 @@
+# Results
+
+This folder contains the computational results generated during the AI-guided
+Hantaan virus (HTNV) L-protein/RdRp inhibitor-discovery project.
+
+## Contents
+
+- `gen2_reference.csv` — Reference data for the prioritized Gen-2 trifluoromethyl analogue.
+- `scaffold_hopped_candidates.csv` — Summary of the 20 scaffold-hopped candidates across 10 scaffold classes.
+- `docking_scores.csv` — Predicted docking scores for HTNV 8C4T and exploratory tubulin–colchicine-site target 1SA0.
+- `interaction_analysis.csv` — Residue-level interaction analysis results.
+- `figures/` — Docking poses, interaction maps, ADMET plots, and other visual outputs.
+
+## Important Note
+
+All results are computational predictions and are hypothesis-generating only.
+No molecular-dynamics simulations or experimental validation were performed in
+the present study.
