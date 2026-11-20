@@ -1,0 +1,38 @@
+# Notebooks
+
+This folder contains Jupyter notebooks used in the AI-guided Hantaan virus
+(HTNV) L-protein/RdRp inhibitor-discovery project.
+
+## Project Focus
+
+The project focuses on computational inhibitor discovery for the Hantaan virus
+(HTNV) L-protein/RNA-dependent RNA polymerase (RdRp), using the experimental
+structure PDB 8C4T.
+
+## Workflow
+
+1. FDA-approved compound library preparation.
+2. Virtual screening and docking-based prioritization.
+3. ADMET profiling and drug-likeness analysis.
+4. Lead identification, with baloxavir used as the lead scaffold.
+5. Bemis–Murcko scaffold analysis.
+6. Reaction-based analogue generation using SMIRKS and SELFIES.
+7. Generative analogue design using REINVENT.
+8. Scaffold hopping across 10 scaffold classes.
+9. Molecular similarity analysis.
+10. Docking-score analysis for HTNV 8C4T and exploratory tubulin–colchicine-site target PDB 1SA0.
+11. Residue-level interaction analysis.
+12. Explainable AI analysis using SHAP and GNNExplainer.
+13. Pharmacophore modeling and visualization.
+
+## Key Candidates
+
+- **Gen2_Trifluoromethyl** — prioritized Gen-2 analogue, with a predicted docking score of −8.649 kcal/mol against HTNV 8C4T.
+- **Analog_2A_Indole** and **Analog_3B_Quinoline** — HTNV-retained profile candidates.
+- **Analog_7A_Coumarin**, **Analog_7B_Coumarin**, and **Analog_10B_Biphenyl** — exploratory dual-target profile candidates.
+
+## Important Note
+
+All outputs are computational predictions and are hypothesis-generating only.
+No molecular-dynamics simulations or experimental validation were performed in
+the present study.
